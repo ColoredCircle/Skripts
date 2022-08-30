@@ -1,0 +1,39 @@
+command /addwarp [<text>]:
+	permission: dolphinwarps.setwarp
+	permission message: &3Dolphin Warps: You don't have permission to run this command!
+	trigger:
+		if arg 1 is set:
+			if {dolphinwarps::%arg 1%} is not set:
+				set {dolphinwarps::%arg 1%} to location of player
+				send "&3Dolphin Warps: Set warp %arg 1% to your location."
+			else:
+				send "&3Dolphin Warps: Warp %arg 1% is already set!"
+			else:
+				send "&3Dolphin Warps: Your warp requires a name."
+
+
+command /remwarp [<text>]:
+	permission dolphinwarps.delwarp
+	permission message: &3Dolphin Warps: You don't have permission to run this command!
+	trigger:
+		cancel event
+		if arg 1 is set:
+			if {dolphinwarps::%arg 1%} is set:
+			delete {dolphinwarps::%arg 1%}
+			send "&3Dolphin Warps: Warp %arg 1% has been deleted."
+		else:
+			send "&3Dolphin Warps: Warp %arg 1% doesn't exist."
+		else:
+			send "&3Dolphin Warps:  You need to specify which warp you want to delete."
+
+
+command /dwarp [<text>]:
+    trigger:
+        if arg 1 is set:
+            if {dolphinwarps::%arg 1%} is set:
+			teleport player to {dolphinwarps::%arg 1%}
+			send "&3Dolphin Warps: Teleported to warp %arg 1%!"
+		else:
+			send "&3Dolphin Warps: Warp %arg 1% doesn't exist."
+	else:
+		send "&3Dolphin Warps:  You need to specify which warp you want to teleport to."
